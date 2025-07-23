@@ -1,0 +1,247 @@
+# ADJ Automotive Repair Services - Git Ignore File
+
+# Environment Configuration
+.env
+.env.local
+.env.production
+.env.staging
+.env.backup
+
+# Database
+*.sql
+*.sqlite
+*.db
+database/backups/
+database/dumps/
+
+# Logs
+logs/
+*.log
+error.log
+access.log
+debug.log
+
+# Cache
+cache/
+tmp/
+temp/
+.cache/
+
+# Uploads and User Generated Content
+uploads/cars/*
+uploads/services/*
+uploads/gallery/*
+uploads/temp/*
+!uploads/cars/.gitkeep
+!uploads/services/.gitkeep
+!uploads/gallery/.gitkeep
+!uploads/temp/.gitkeep
+
+# Backup Files
+backups/
+*.backup
+*.bak
+
+# IDE and Editor Files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Composer (if using)
+vendor/
+composer.lock
+composer.phar
+
+# Node.js (if using for build tools)
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+
+# Build and Distribution
+dist/
+build/
+public/build/
+
+# PHP Specific
+*.php~
+.phpunit.result.cache
+phpunit.xml
+
+# Session Files
+sessions/
+*.sess
+
+# Configuration Files (sensitive)
+config/local.php
+config/production.php
+config/staging.php
+
+# SSL Certificates
+*.pem
+*.key
+*.crt
+*.csr
+
+# Error Pages (if auto-generated)
+error_pages/
+
+# Maintenance Files
+maintenance.html
+.maintenance
+
+# Documentation Build
+docs/_build/
+docs/.doctrees/
+
+# Testing
+tests/coverage/
+coverage/
+.phpunit.cache
+
+# Deployment Scripts
+deploy.sh
+deploy.php
+.deploy/
+
+# Archive Files
+*.zip
+*.tar
+*.tar.gz
+*.rar
+
+# System Files
+.htaccess.backup
+robots.txt.backup
+
+# Email Templates (if auto-generated)
+email_templates/compiled/
+
+# Reports and Analytics
+reports/
+analytics/
+
+# Temporary PHP Files
+*.tmp.php
+
+# Lock Files
+*.lock
+
+# Local Development
+local/
+dev/
+development/
+
+# Windows
+ehthumbs.db
+Desktop.ini
+
+# macOS
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# Sublime Text
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+*.sublime-workspace
+*.sublime-project
+
+# JetBrains IDEs
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Visual Studio Code
+.vscode/
+*.code-workspace
+
+# Atom
+.atom/
+
+# Eclipse
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.recommenders
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# Custom Application Specific
+admin/uploads/temp/
+public/temp/
+includes/temp/
+
+# Security
+.htpasswd
+.htaccess.secure
+security/
+
+# Performance Monitoring
+newrelic.ini
+blackfire.ini
+
+# Docker (if using)
+.dockerignore
+docker-compose.override.yml
+.docker/
+
+# Vagrant (if using)
+.vagrant/
+Vagrantfile.local
+
+# Local Configuration Override
+local.config.php
+override.config.php
+
+create_admin.php
+reset_admin_password.php
