@@ -1,0 +1,30 @@
+{
+  "name": "adj-automotive-repair-services",
+  "version": "1.0.0",
+  "description": "ADJ Automotive Repair Services - Professional automotive repair website",
+  "main": "index.js",
+  "scripts": {
+    "build-css": "tailwindcss -i ./src/input.css -o ./assets/css/tailwind.css --watch",
+    "build-css-prod": "tailwindcss -i ./src/input.css -o ./assets/css/tailwind.css --minify",
+    "build-admin": "tailwindcss -i ./src/admin.css -o ./assets/css/admin-tailwind.css --watch",
+    "build-admin-prod": "tailwindcss -i ./src/admin.css -o ./assets/css/admin-tailwind.css --minify",
+    "build-all": "npm run build-css-prod && npm run build-admin-prod",
+    "dev": "npm run build-css",
+    "dev-admin": "npm run build-admin",
+    "build": "npm run build-all"
+  },
+  "keywords": [
+    "automotive",
+    "repair",
+    "guam",
+    "transmission",
+    "engine"
+  ],
+  "author": "ADJ Automotive Repair Services",
+  "license": "ISC",
+  "devDependencies": {
+    "tailwindcss": "^3.4.0",
+    "@tailwindcss/forms": "^0.5.7",
+    "@tailwindcss/typography": "^0.5.10"
+  }
+}

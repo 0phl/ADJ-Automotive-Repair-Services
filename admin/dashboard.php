@@ -50,8 +50,10 @@ include 'includes/admin-header.php';
 
 <!-- Dashboard Content -->
 <div class="page-header">
-    <h1>Dashboard</h1>
-    <p>Welcome back, <?php echo htmlspecialchars($_SESSION['admin_username']); ?>!</p>
+    <div class="page-header-content">
+        <h1 class="page-header-title">Dashboard</h1>
+        <p class="page-header-subtitle">Welcome back, <?php echo htmlspecialchars($_SESSION['admin_username']); ?>!</p>
+    </div>
 </div>
 
 <!-- Statistics Cards -->

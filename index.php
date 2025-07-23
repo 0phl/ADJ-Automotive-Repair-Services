@@ -36,7 +36,7 @@ include 'includes/header.php';
 <!-- Hero Section -->
 <section class="relative min-h-screen flex items-center text-white overflow-hidden">
     <div class="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat" style="background-image: url('assets/images/background.jpg');">
-        <div class="absolute inset-0 bg-gradient-to-br from-blue-900/80 via-slate-700/80 to-blue-600/80"></div>
+        <div class="absolute inset-0 hero-gradient"></div>
     </div>
 
     <div class="relative z-10 container mx-auto px-4 text-center max-w-4xl">
@@ -48,7 +48,7 @@ include 'includes/header.php';
             <h1 class="mb-8">
                 <span class="block text-base font-semibold tracking-widest uppercase text-white/90 mb-4">YOUR TRUSTED CAR REPAIR EXPERTS</span>
                 <span class="block text-4xl md:text-5xl font-bold leading-tight text-white">
-                    Dealership Quality Repair at an <span class="text-yellow-400">Affordable Price</span>
+                    Dealership Quality Repair at an <span class="text-secondary-yellow">Affordable Price</span>
                 </span>
             </h1>
 
@@ -60,22 +60,28 @@ include 'includes/header.php';
             <!-- Trust Indicators -->
             <div class="flex justify-center flex-wrap gap-8 mb-12">
                 <div class="flex items-center gap-2 text-base">
-                    <i class="fas fa-shield-alt flex items-center justify-center w-7 h-7 bg-yellow-400/20 border border-yellow-400 rounded-full text-yellow-400 text-sm"></i>
+                    <div class="flex items-center justify-center w-7 h-7 bg-secondary-yellow/20 border border-secondary-yellow rounded-full">
+                        <i class="fas fa-shield-alt text-secondary-yellow text-xs"></i>
+                    </div>
                     <span class="font-semibold text-white">1-Year Warranty</span>
                 </div>
                 <div class="flex items-center gap-2 text-base">
-                    <i class="fas fa-award flex items-center justify-center w-7 h-7 bg-yellow-400/20 border border-yellow-400 rounded-full text-yellow-400 text-sm"></i>
+                    <div class="flex items-center justify-center w-7 h-7 bg-secondary-yellow/20 border border-secondary-yellow rounded-full">
+                        <i class="fas fa-award text-secondary-yellow text-xs"></i>
+                    </div>
                     <span class="font-semibold text-white">ASE Certified</span>
                 </div>
                 <div class="flex items-center gap-2 text-base">
-                    <i class="fas fa-clock flex items-center justify-center w-7 h-7 bg-yellow-400/20 border border-yellow-400 rounded-full text-yellow-400 text-sm"></i>
+                    <div class="flex items-center justify-center w-7 h-7 bg-secondary-yellow/20 border border-secondary-yellow rounded-full">
+                        <i class="fas fa-clock text-secondary-yellow text-xs"></i>
+                    </div>
                     <span class="font-semibold text-white">Quick Turnaround</span>
                 </div>
             </div>
 
             <!-- Action Buttons -->
             <div class="flex justify-center flex-wrap gap-6">
-                <a href="<?php echo BASE_URL; ?>/public/quote-request.php" class="inline-flex items-center gap-2 bg-yellow-400 text-blue-900 py-4 px-8 rounded-lg font-semibold text-base no-underline transition-all duration-300 ease-in-out shadow-lg shadow-yellow-400/30 hover:bg-yellow-500 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-yellow-400/40">
+                <a href="<?php echo BASE_URL; ?>/public/quote-request.php" class="btn-yellow">
                     <i class="fas fa-calendar-plus"></i>
                     Book Appointment
                 </a>
@@ -89,7 +95,7 @@ include 'includes/header.php';
 </section>
 
 <!-- Featured Services Section -->
-<section class="services-section">
+<section class="py-12 bg-light-gray">
     <div class="container mx-auto px-4">
         <div class="section-header">
             <h2 class="section-title">
@@ -117,19 +123,19 @@ include 'includes/header.php';
                     <?php echo htmlspecialchars(truncateText($service['description'], 100)); ?>
                 </p>
 
-                <div class="service-pricing">
-                    <span class="service-price">
+                <div class="mb-4">
+                    <span class="block text-base font-semibold text-primary-blue">
                         <?php echo htmlspecialchars($service['price_range']); ?>
                     </span>
                     <?php if ($service['labor_rate']): ?>
-                    <span class="service-rate">
+                    <span class="block text-sm text-text-gray mt-1">
                         Labor: $<?php echo number_format($service['labor_rate'], 0); ?>/hour
                     </span>
                     <?php endif; ?>
                 </div>
 
                 <?php if ($service['category'] === 'transmission'): ?>
-                <div class="service-bonus">
+                <div class="flex items-center justify-center gap-2 bg-yellow-100 text-yellow-800 py-2 px-4 rounded-md text-sm font-semibold mb-4">
                     <i class="fas fa-gift"></i>
                     <span>FREE items + 1-year warranty!</span>
                 </div>
@@ -143,14 +149,14 @@ include 'includes/header.php';
             </div>
                 <?php endforeach; ?>
             <?php else: ?>
-                <div class="no-services">
-                    <i class="fas fa-tools"></i>
+                <div class="col-span-full text-center py-12 text-text-gray">
+                    <i class="fas fa-tools text-5xl mb-4 text-gray-300"></i>
                     <p>Featured services will be displayed here once they are configured.</p>
                 </div>
             <?php endif; ?>
         </div>
 
-        <div class="section-action">
+        <div class="text-center">
             <a href="<?php echo BASE_URL; ?>/public/services/" class="btn-view-all">
                 View All Services
                 <i class="fas fa-arrow-right"></i>
@@ -221,7 +227,7 @@ include 'includes/header.php';
             <?php endforeach; ?>
         </div>
 
-        <div class="section-action">
+        <div class="section-action text-center">
             <a href="<?php echo BASE_URL; ?>/public/cars/" class="btn-view-all">
                 View All Cars
                 <i class="fas fa-arrow-right"></i>

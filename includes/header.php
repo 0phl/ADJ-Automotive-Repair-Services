@@ -54,35 +54,8 @@
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="<?php echo ASSETS_URL; ?>/images/logos/adjlogo.png">
     
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'primary-blue': '<?php echo COLOR_PRIMARY_BLUE; ?>',
-                        'secondary-yellow': '<?php echo COLOR_SECONDARY_YELLOW; ?>',
-                        'light-gray': '<?php echo COLOR_LIGHT_GRAY; ?>',
-                        'dark-blue': '<?php echo COLOR_DARK_BLUE; ?>',
-                        'text-gray': '<?php echo COLOR_TEXT_GRAY; ?>',
-                        'border-gray': '<?php echo COLOR_BORDER_GRAY; ?>',
-
-                        // Legacy color mappings for compatibility
-                        'secondary-orange': '<?php echo COLOR_SECONDARY_YELLOW; ?>',
-                        'accent-red': '<?php echo COLOR_PRIMARY_BLUE; ?>',
-                        'dark-gray': '<?php echo COLOR_DARK_BLUE; ?>',
-                        'success-green': '<?php echo COLOR_SUCCESS_GREEN; ?>',
-                        'warning-yellow': '<?php echo COLOR_SECONDARY_YELLOW; ?>'
-                    }
-                }
-            }
-        }
-    </script>
-    
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="<?php echo ASSETS_URL; ?>/css/custom.css">
-    <link rel="stylesheet" href="<?php echo ASSETS_URL; ?>/css/qouterequest.css">
+    <!-- Tailwind CSS - Local Build -->
+    <link rel="stylesheet" href="<?php echo ASSETS_URL; ?>/css/tailwind.css">
     
     <!-- Google Fonts - Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

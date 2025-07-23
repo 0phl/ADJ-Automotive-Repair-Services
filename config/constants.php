@@ -6,7 +6,7 @@
 
 // Application Information
 define('APP_NAME', 'ADJ Automotive Repair Services');
-define('APP_VERSION', '1.0.0');
+define('APP_VERSION', '1.0.2');
 define('APP_DESCRIPTION', 'YOUR TRUSTED CAR REPAIR EXPERTS');
 
 // Environment

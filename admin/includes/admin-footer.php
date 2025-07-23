@@ -1,5 +1,5 @@
             </div> <!-- End page content -->
-        </div> <!-- End main-content -->
+        </div> <!-- End admin-main-content -->
     </div> <!-- End admin-container -->
 
     <!-- Admin JavaScript -->

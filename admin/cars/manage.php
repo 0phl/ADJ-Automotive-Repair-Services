@@ -85,7 +85,8 @@ if ($flash):
     </div>
     <a href="add.php" class="btn btn-primary">
         <i class="fas fa-plus"></i>
-        <span>Add New Car</span>
+        <span class="hidden sm:inline">Add New Car</span>
+        <span class="sm:hidden">Add</span>
     </a>
 </div>
 
@@ -119,11 +120,11 @@ if ($flash):
             <div class="filter-actions">
                 <button type="submit" class="btn btn-primary">
                     <i class="fas fa-filter"></i>
-                    <span>Filter</span>
+                    <span class="hidden sm:inline">Filter</span>
                 </button>
                 <a href="manage.php" class="btn btn-secondary">
                     <i class="fas fa-sync-alt"></i>
-                    <span>Clear</span>
+                    <span class="hidden sm:inline">Clear</span>
                 </a>
             </div>
         </form>
@@ -131,103 +132,190 @@ if ($flash):
 </div>
 
 <div class="card">
-    <div class="card-header card-header-action">
-        <h2 class="card-title">Cars (<?php echo count($cars); ?>)</h2>
-        <div class="table-search">
-            <i class="fas fa-search"></i>
-            <input type="text" placeholder="Search cars..." class="form-input" data-search-target="#cars-table">
+    <div class="card-header">
+        <div class="card-header-mobile">
+            <h2 class="card-title">Cars (<?php echo count($cars); ?>)</h2>
+            <div class="table-search">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search cars..." class="form-input" data-search-target="#cars-table">
+            </div>
         </div>
     </div>
-    <div class="table-container">
-        <?php if (empty($cars)): ?>
-        <div class="empty-state">
-            <i class="fas fa-car"></i>
-            <h3 class="empty-state-title">No Cars Found</h3>
-            <p class="empty-state-text">No cars match your current filters.</p>
-            <a href="add.php" class="btn btn-primary">
-                <i class="fas fa-plus"></i>
-                <span>Add First Car</span>
-            </a>
-        </div>
-        <?php else: ?>
+    <?php if (empty($cars)): ?>
+    <div class="empty-state">
+        <i class="fas fa-car"></i>
+        <h3 class="empty-state-title">No Cars Found</h3>
+        <p class="empty-state-text">No cars match your current filters.</p>
+        <a href="add.php" class="btn btn-primary">
+            <i class="fas fa-plus"></i>
+            <span>Add First Car</span>
+        </a>
+    </div>
+    <?php else: ?>
+
+    <!-- Desktop Table View -->
+    <div class="table-container hidden sm:block">
         <table class="table" id="cars-table">
-            <thead>
-                <tr>
-                    <th>Image</th>
-                    <th data-sort>Vehicle</th>
-                    <th data-sort>Price</th>
-                    <th data-sort>Mileage</th>
-                    <th data-sort>Status</th>
-                    <th data-sort>Views</th>
-                    <th data-sort>Inquiries</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($cars as $car): ?>
-                <tr>
-                    <td>
-                        <?php
-                        $images = json_decode($car['images'], true);
-                        $mainImage = !empty($images) ? $images[0] : 'placeholder.svg';
-                        ?>
-                        <img src="<?php echo !empty($images) ? UPLOADS_URL . '/cars/' . htmlspecialchars($mainImage) : ASSETS_URL . '/images/placeholder.svg'; ?>"
-                             alt="<?php echo htmlspecialchars($car['make'] . ' ' . $car['model']); ?>"
-                             class="table-image"
-                             onerror="this.src='<?php echo ASSETS_URL; ?>/images/placeholder.svg'">
-                    </td>
-                    <td data-label="Vehicle">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th data-sort>Vehicle</th>
+                <th data-sort>Price</th>
+                <th data-sort>Mileage</th>
+                <th data-sort>Status</th>
+                <th data-sort>Views</th>
+                <th data-sort>Inquiries</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($cars as $car): ?>
+            <tr>
+                <td>
+                    <?php
+                    $images = json_decode($car['images'], true);
+                    $mainImage = !empty($images) ? $images[0] : 'placeholder.svg';
+                    ?>
+                    <img src="<?php echo !empty($images) ? UPLOADS_URL . '/cars/' . htmlspecialchars($mainImage) : ASSETS_URL . '/images/placeholder.svg'; ?>"
+                         alt="<?php echo htmlspecialchars($car['make'] . ' ' . $car['model']); ?>"
+                         class="table-image"
+                         onerror="this.src='<?php echo ASSETS_URL; ?>/images/placeholder.svg'">
+                </td>
+                <td data-label="Vehicle">
+                    <div class="mobile-vehicle-info">
                         <div class="table-cell-primary">
                             <?php echo htmlspecialchars($car['year'] . ' ' . $car['make'] . ' ' . $car['model']); ?>
                             <?php if ($car['featured']): ?>
-                            <span class="badge badge-featured">Featured</span>
+                            <span class="badge badge-featured ml-2">Featured</span>
                             <?php endif; ?>
                         </div>
                         <div class="table-cell-secondary">
                             Added <?php echo date('M j, Y', strtotime($car['created_at'])); ?>
                         </div>
-                    </td>
-                    <td data-label="Price"><?php echo formatCurrency($car['price']); ?></td>
-                    <td data-label="Mileage"><?php echo number_format($car['mileage']); ?> mi</td>
-                    <td data-label="Status">
-                        <span class="badge badge-<?php echo htmlspecialchars($car['status']); ?>">
-                            <?php echo ucfirst(htmlspecialchars($car['status'])); ?>
-                        </span>
-                    </td>
-                    <td data-label="Views"><?php echo $car['views']; ?></td>
-                    <td data-label="Inquiries"><?php echo $car['inquiries_count']; ?></td>
-                    <td data-label="Actions">
-                        <div class="table-actions">
-                            <a href="<?php echo BASE_URL; ?>/public/cars/details.php?id=<?php echo $car['id']; ?>" target="_blank" class="btn-icon" title="View on website">
-                                <i class="fas fa-eye"></i>
-                            </a>
-                            <a href="edit.php?id=<?php echo $car['id']; ?>" class="btn-icon" title="Edit car">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                            <form method="POST" class="inline" onsubmit="return confirm('Toggle featured status?')">
-                                <input type="hidden" name="csrf_token" value="<?php echo generateCSRFToken(); ?>">
-                                <input type="hidden" name="action" value="toggle_featured">
-                                <input type="hidden" name="car_id" value="<?php echo $car['id']; ?>">
-                                <input type="hidden" name="featured" value="<?php echo $car['featured'] ? 0 : 1; ?>">
-                                <button type="submit" class="btn-icon <?php echo $car['featured'] ? 'featured' : ''; ?>" title="<?php echo $car['featured'] ? 'Remove from featured' : 'Mark as featured'; ?>">
-                                    <i class="fas fa-star"></i>
-                                </button>
-                            </form>
-                            <form method="POST" class="inline delete-btn" onsubmit="return confirm('Are you sure you want to delete this car? This action cannot be undone.')">
-                                <input type="hidden" name="csrf_token" value="<?php echo generateCSRFToken(); ?>">
-                                <input type="hidden" name="action" value="delete">
-                                <input type="hidden" name="car_id" value="<?php echo $car['id']; ?>">
-                                <button type="submit" class="btn-icon btn-icon-danger" title="Delete car">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </form>
-                        </div>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
+                    </div>
+                </td>
+                <td data-label="Price"><?php echo formatCurrency($car['price']); ?></td>
+                <td data-label="Mileage"><?php echo number_format($car['mileage']); ?> mi</td>
+                <td data-label="Status">
+                    <span class="badge badge-<?php echo htmlspecialchars($car['status']); ?>">
+                        <?php echo ucfirst(htmlspecialchars($car['status'])); ?>
+                    </span>
+                </td>
+                <td data-label="Views"><?php echo $car['views']; ?></td>
+                <td data-label="Inquiries"><?php echo $car['inquiries_count']; ?></td>
+                <td data-label="Actions">
+                    <div class="table-actions">
+                        <a href="<?php echo BASE_URL; ?>/public/cars/details.php?id=<?php echo $car['id']; ?>" target="_blank" class="btn-icon" title="View on website">
+                            <i class="fas fa-eye"></i>
+                        </a>
+                        <a href="edit.php?id=<?php echo $car['id']; ?>" class="btn-icon" title="Edit car">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <form method="POST" class="inline" onsubmit="return confirm('Toggle featured status?')">
+                            <input type="hidden" name="csrf_token" value="<?php echo generateCSRFToken(); ?>">
+                            <input type="hidden" name="action" value="toggle_featured">
+                            <input type="hidden" name="car_id" value="<?php echo $car['id']; ?>">
+                            <input type="hidden" name="featured" value="<?php echo $car['featured'] ? 0 : 1; ?>">
+                            <button type="submit" class="btn-icon <?php echo $car['featured'] ? 'featured' : ''; ?>" title="<?php echo $car['featured'] ? 'Remove from featured' : 'Mark as featured'; ?>">
+                                <i class="fas fa-star"></i>
+                            </button>
+                        </form>
+                        <form method="POST" class="inline delete-btn" onsubmit="return confirm('Are you sure you want to delete this car? This action cannot be undone.')">
+                            <input type="hidden" name="csrf_token" value="<?php echo generateCSRFToken(); ?>">
+                            <input type="hidden" name="action" value="delete">
+                            <input type="hidden" name="car_id" value="<?php echo $car['id']; ?>">
+                            <button type="submit" class="btn-icon btn-icon-danger" title="Delete car">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
         </table>
-        <?php endif; ?>
+    </div>
+
+    <!-- Mobile Car Cards -->
+    <div class="mobile-cars-container sm:hidden">
+        <?php foreach ($cars as $car): ?>
+        <div class="mobile-car-card">
+            <div class="mobile-car-header">
+                <?php
+                $images = json_decode($car['images'], true);
+                $mainImage = !empty($images) ? $images[0] : 'placeholder.svg';
+                ?>
+                <img src="<?php echo !empty($images) ? UPLOADS_URL . '/cars/' . htmlspecialchars($mainImage) : ASSETS_URL . '/images/placeholder.svg'; ?>"
+                     alt="<?php echo htmlspecialchars($car['make'] . ' ' . $car['model']); ?>"
+                     class="mobile-car-image"
+                     onerror="this.src='<?php echo ASSETS_URL; ?>/images/placeholder.svg'">
+                <div class="mobile-car-info">
+                    <div class="mobile-car-title">
+                        <?php echo htmlspecialchars($car['year'] . ' ' . $car['make'] . ' ' . $car['model']); ?>
+                        <?php if ($car['featured']): ?>
+                        <span class="badge badge-featured ml-1">Featured</span>
+                        <?php endif; ?>
+                    </div>
+                    <div class="mobile-car-meta">
+                        Added <?php echo date('M j, Y', strtotime($car['created_at'])); ?>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mobile-car-details">
+                <div class="mobile-car-detail">
+                    <span class="mobile-car-detail-label">Price:</span>
+                    <span><?php echo formatCurrency($car['price']); ?></span>
+                </div>
+                <div class="mobile-car-detail">
+                    <span class="mobile-car-detail-label">Mileage:</span>
+                    <span><?php echo number_format($car['mileage']); ?> mi</span>
+                </div>
+                <div class="mobile-car-detail">
+                    <span class="mobile-car-detail-label">Status:</span>
+                    <span class="badge badge-<?php echo htmlspecialchars($car['status']); ?>">
+                        <?php echo ucfirst(htmlspecialchars($car['status'])); ?>
+                    </span>
+                </div>
+                <div class="mobile-car-detail">
+                    <span class="mobile-car-detail-label">Views:</span>
+                    <span><?php echo $car['views']; ?></span>
+                </div>
+                <div class="mobile-car-detail">
+                    <span class="mobile-car-detail-label">Inquiries:</span>
+                    <span><?php echo $car['inquiries_count']; ?></span>
+                </div>
+            </div>
+
+            <div class="mobile-car-actions">
+                <a href="<?php echo BASE_URL; ?>/public/cars/details.php?id=<?php echo $car['id']; ?>" target="_blank" class="btn-icon" title="View on website">
+                    <i class="fas fa-eye"></i>
+                </a>
+                <a href="edit.php?id=<?php echo $car['id']; ?>" class="btn-icon" title="Edit car">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <form method="POST" class="inline" onsubmit="return confirm('Toggle featured status?')">
+                    <input type="hidden" name="csrf_token" value="<?php echo generateCSRFToken(); ?>">
+                    <input type="hidden" name="action" value="toggle_featured">
+                    <input type="hidden" name="car_id" value="<?php echo $car['id']; ?>">
+                    <input type="hidden" name="featured" value="<?php echo $car['featured'] ? 0 : 1; ?>">
+                    <button type="submit" class="btn-icon <?php echo $car['featured'] ? 'featured' : ''; ?>" title="<?php echo $car['featured'] ? 'Remove from featured' : 'Mark as featured'; ?>">
+                        <i class="fas fa-star"></i>
+                    </button>
+                </form>
+                <form method="POST" class="inline delete-btn" onsubmit="return confirm('Are you sure you want to delete this car? This action cannot be undone.')">
+                    <input type="hidden" name="csrf_token" value="<?php echo generateCSRFToken(); ?>">
+                    <input type="hidden" name="action" value="delete">
+                    <input type="hidden" name="car_id" value="<?php echo $car['id']; ?>">
+                    <button type="submit" class="btn-icon btn-icon-danger" title="Delete car">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+        <?php endforeach; ?>
+    </div>
+    <?php endif; ?>
     </div>
 </div>
 

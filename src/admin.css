@@ -1,0 +1,837 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Admin Panel Specific Styles */
+@layer base {
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f8fafc;
+    color: #1f2937;
+    line-height: 1.6;
+  }
+}
+
+@layer components {
+  /* Admin Layout */
+  .admin-container {
+    @apply flex min-h-screen;
+  }
+  
+  .admin-sidebar {
+    @apply w-64 bg-white border-r border-gray-200 shadow-sm flex flex-col transition-all duration-300;
+  }
+
+  @media (max-width: 767px) {
+    .admin-sidebar {
+      @apply fixed left-0 top-0 h-full z-50 transform -translate-x-full;
+    }
+
+    .admin-sidebar.mobile-open {
+      @apply translate-x-0;
+    }
+  }
+  
+  .admin-main-content {
+    @apply flex-1 flex flex-col;
+  }
+
+  @media (max-width: 767px) {
+    .admin-main-content {
+      @apply w-full;
+    }
+  }
+
+  /* Mobile Sidebar Overlay */
+  .mobile-sidebar-overlay {
+    @apply fixed inset-0 bg-black bg-opacity-50 z-40 opacity-0 invisible transition-all duration-300;
+  }
+
+  .mobile-sidebar-overlay.active {
+    @apply opacity-100 visible;
+  }
+
+  body.sidebar-open {
+    @apply overflow-hidden;
+  }
+  
+  /* Sidebar Components */
+  .sidebar-header {
+    @apply p-6 border-b border-gray-200 text-center;
+  }
+  
+  .sidebar-logo-link {
+    @apply flex items-center justify-center gap-3 no-underline text-primary-blue;
+  }
+  
+  .sidebar-logo-link i {
+    @apply text-2xl;
+  }
+  
+  .sidebar-logo-text {
+    @apply text-xl font-bold tracking-tight;
+  }
+  
+  .sidebar-tagline {
+    @apply text-xs text-gray-500 mt-1;
+  }
+  
+  .sidebar-nav {
+    @apply flex-grow py-4 overflow-y-auto;
+  }
+  
+  .nav-section {
+    @apply mb-6;
+  }
+  
+  .nav-section-title {
+    @apply text-xs uppercase text-gray-500 font-semibold tracking-wider px-6 mb-3;
+  }
+  
+  .nav-item {
+    @apply flex items-center gap-3 py-3 px-6 text-gray-600 no-underline transition-all duration-200 border-l-4 border-transparent font-medium hover:bg-gray-50 hover:text-primary-blue;
+  }
+  
+  .nav-item.active {
+    @apply bg-blue-50 text-primary-blue border-l-primary-blue font-semibold;
+  }
+  
+  .nav-item i {
+    @apply w-5 text-base text-center;
+  }
+  
+  .sidebar-footer {
+    @apply p-6 border-t border-gray-200;
+  }
+  
+  .sidebar-user-info {
+    @apply flex items-center gap-3 mb-4;
+  }
+  
+  .sidebar-user-avatar {
+    @apply bg-primary-blue text-white w-9 h-9 rounded-full flex items-center justify-center;
+  }
+  
+  .sidebar-user-details {
+    @apply flex flex-col;
+  }
+  
+  .sidebar-user-name {
+    @apply font-semibold text-sm;
+  }
+  
+  .sidebar-user-role {
+    @apply text-xs text-gray-500;
+  }
+  
+  .sidebar-footer-actions {
+    @apply grid grid-cols-2 gap-2;
+  }
+  
+  /* Header */
+  .admin-header {
+    @apply bg-white py-4 px-8 border-b border-gray-200 flex justify-between items-center sticky top-0 z-10;
+  }
+
+  .admin-header-left {
+    @apply flex items-center gap-4;
+  }
+
+  .mobile-menu-toggle {
+    @apply p-2 text-gray-600 hover:text-primary-blue hover:bg-gray-100 rounded-lg transition-colors duration-200;
+  }
+
+  .page-title {
+    @apply text-3xl font-bold text-primary-blue;
+  }
+
+  .admin-header-actions {
+    @apply flex items-center gap-4;
+  }
+  
+  .notification-widget {
+    @apply relative;
+  }
+  
+  .notification-button {
+    @apply bg-transparent border-0 cursor-pointer text-gray-500 text-xl relative;
+  }
+  
+  .notification-badge {
+    @apply absolute -top-1 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-4 w-4 flex items-center justify-center border-2 border-white;
+  }
+  
+  .page-content {
+    @apply p-8 flex-grow bg-gray-50;
+  }
+
+  /* Page Header */
+  .page-header {
+    @apply mb-8;
+  }
+
+  .page-header-content {
+    @apply flex flex-col;
+  }
+
+  .page-header-title {
+    @apply text-4xl font-bold text-primary-blue mb-2;
+  }
+
+  .page-header-subtitle {
+    @apply text-gray-500 text-base;
+  }
+  
+  /* Cards */
+  .card {
+    @apply bg-white rounded-lg shadow-sm p-6 mb-6;
+  }
+  
+  .card-header {
+    @apply mb-4 pb-4 border-b border-gray-200;
+  }
+  
+  .card-title {
+    @apply text-lg font-semibold text-primary-blue;
+  }
+  
+  .card-header-action {
+    @apply flex justify-between items-center;
+  }
+  
+  .view-all-link {
+    @apply text-primary-blue no-underline text-sm;
+  }
+  
+  .view-all-link i {
+    @apply ml-1;
+  }
+  
+  /* Stats Cards */
+  .stats-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8;
+  }
+  
+  .stat-card {
+    @apply bg-white rounded-lg shadow-sm p-6 flex items-center gap-4;
+  }
+  
+  .stat-icon {
+    @apply w-12 h-12 rounded-lg flex items-center justify-center text-xl text-white;
+  }
+  
+  .stat-icon.blue { @apply bg-primary-blue; }
+  .stat-icon.green { @apply bg-green-500; }
+  .stat-icon.yellow { @apply bg-yellow-500; }
+  .stat-icon.red { @apply bg-red-500; }
+  
+  .stat-content h3 {
+    @apply text-2xl font-bold text-primary-blue mb-1;
+  }
+  
+  .stat-content p {
+    @apply text-gray-500 text-sm;
+  }
+  
+  /* Buttons */
+  .btn {
+    @apply inline-flex items-center gap-2 py-2 px-4 border-0 rounded-md font-medium no-underline cursor-pointer transition-all duration-200 text-sm;
+  }
+  
+  .btn-primary {
+    @apply bg-primary-blue text-white hover:bg-blue-700;
+  }
+  
+  .btn-secondary {
+    @apply bg-gray-500 text-white hover:bg-gray-600;
+  }
+  
+  .btn-success {
+    @apply bg-green-500 text-white hover:bg-green-600;
+  }
+  
+  .btn-warning {
+    @apply bg-yellow-500 text-white hover:bg-yellow-600;
+  }
+  
+  .btn-danger {
+    @apply bg-red-500 text-white hover:bg-red-600;
+  }
+  
+  .btn-sm {
+    @apply py-1.5 px-3 text-xs;
+  }
+  
+  .btn-icon {
+    @apply bg-transparent border-0 cursor-pointer text-gray-500 text-base p-1 transition-colors duration-200 hover:text-primary-blue;
+  }
+  
+  .btn-icon.btn-icon-danger:hover {
+    @apply text-red-500;
+  }
+  
+  .btn-icon.featured {
+    @apply text-yellow-500;
+  }
+  
+  /* Forms */
+  .form-container {
+    @apply bg-white rounded-lg shadow-sm p-8;
+  }
+  
+  .form-grid {
+    @apply grid grid-cols-1 gap-8;
+  }
+  
+  @media (min-width: 1024px) {
+    .form-grid {
+      @apply grid-cols-2;
+    }
+  }
+  
+  .form-section-title {
+    @apply text-xl font-semibold text-primary-blue mb-6 pb-3 border-b border-gray-200;
+  }
+  
+  .form-row {
+    @apply grid grid-cols-1 gap-6 mb-6;
+  }
+  
+  @media (min-width: 768px) {
+    .form-row {
+      @apply grid-cols-2;
+    }
+  }
+  
+  .form-group {
+    @apply mb-6;
+  }
+  
+  .form-label {
+    @apply block font-semibold mb-2 text-primary-blue text-sm;
+  }
+  
+  .form-input,
+  .form-select,
+  .form-textarea {
+    @apply w-full py-3 px-3 border border-gray-300 rounded-md text-base transition-all duration-200 focus:outline-none focus:border-primary-blue focus:shadow-lg focus:shadow-primary-blue/10;
+  }
+  
+  .form-input-group {
+    @apply relative flex items-center;
+  }
+  
+  .form-input-adornment {
+    @apply absolute left-0 pl-3 text-gray-500 pointer-events-none;
+  }
+  
+  .form-input-group .form-input {
+    @apply pl-8;
+  }
+  
+  .form-checkbox-label {
+    @apply flex items-center gap-2 cursor-pointer;
+  }
+  
+  .form-checkbox {
+    @apply h-5 w-5 rounded border border-gray-300 text-primary-blue focus:ring-2 focus:ring-offset-2 focus:ring-primary-blue;
+  }
+  
+  .form-help-text {
+    @apply text-sm text-gray-500 mt-2;
+  }
+  
+  .form-footer {
+    @apply mt-8 pt-6 border-t border-gray-200 flex justify-end gap-4;
+  }
+  
+  /* File Upload */
+  .file-upload-container {
+    @apply relative;
+  }
+  
+  .file-upload-label {
+    @apply flex flex-col items-center justify-center p-8 border-2 border-dashed border-gray-300 rounded-lg text-center cursor-pointer transition-colors duration-200 hover:border-primary-blue;
+  }
+  
+  .file-upload-label i {
+    @apply text-4xl text-gray-400 mb-3;
+  }
+  
+  .file-upload-link {
+    @apply text-primary-blue font-semibold;
+  }
+  
+  .file-upload-info {
+    @apply text-sm text-gray-500 mt-1;
+  }
+  
+  .file-upload-input {
+    @apply absolute w-full h-full top-0 left-0 opacity-0 cursor-pointer;
+  }
+  
+  /* Image Preview */
+  .image-preview-grid {
+    @apply grid grid-cols-4 gap-4 mt-4;
+  }
+  
+  .image-preview-item {
+    @apply relative h-32;
+  }
+  
+  .image-preview-item img {
+    @apply w-full h-full object-cover rounded-md border border-gray-300;
+  }
+  
+  .image-preview-item .remove-image {
+    @apply absolute top-2 right-2 bg-black/60 text-white border-0 rounded-full w-6 h-6 cursor-pointer flex items-center justify-center;
+  }
+  
+  /* Tables */
+  .table-container {
+    @apply overflow-x-auto;
+  }
+  
+  .table {
+    @apply w-full border-collapse bg-white;
+  }
+  
+  .table th,
+  .table td {
+    @apply py-4 px-4 text-left border-b border-gray-200 align-middle;
+  }
+  
+  .table th {
+    @apply bg-gray-50 font-semibold text-primary-blue text-xs uppercase tracking-wider;
+  }
+  
+  .table tbody tr:hover {
+    @apply bg-gray-50;
+  }
+  
+  .table-image {
+    @apply h-10 w-16 object-cover rounded border border-gray-300;
+  }
+  
+  .table-cell-primary {
+    @apply font-semibold text-primary-blue;
+  }
+  
+  .table-cell-secondary {
+    @apply text-sm text-gray-500;
+  }
+  
+  .table-actions {
+    @apply flex items-center gap-3;
+  }
+  
+  .table-search {
+    @apply relative;
+  }
+  
+  .table-search i {
+    @apply absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500;
+  }
+  
+  .table-search .form-input {
+    @apply pl-10 w-64;
+  }
+
+  /* Badges */
+  .badge {
+    @apply inline-flex items-center py-1 px-3 rounded-full text-xs font-medium capitalize;
+  }
+
+  .badge-available {
+    @apply bg-green-100 text-green-800;
+  }
+
+  .badge-sold {
+    @apply bg-red-100 text-red-800;
+  }
+
+  .badge-pending {
+    @apply bg-yellow-100 text-yellow-800;
+  }
+
+  .badge-featured {
+    @apply bg-blue-100 text-blue-800 ml-2;
+  }
+
+  /* Dashboard Specific */
+  .dashboard-grid {
+    @apply grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8;
+  }
+
+  .activity-list {
+    @apply flex flex-col gap-4;
+  }
+
+  .activity-item {
+    @apply border-l-4 border-primary-blue pl-4;
+  }
+
+  .activity-item-quote {
+    @apply border-l-yellow-500;
+  }
+
+  .activity-header {
+    @apply flex justify-between items-start;
+  }
+
+  .activity-title {
+    @apply font-semibold text-primary-blue mb-1;
+  }
+
+  .activity-meta {
+    @apply text-sm text-gray-500 mb-1;
+  }
+
+  .activity-time {
+    @apply text-xs text-gray-500 flex-shrink-0 ml-4;
+  }
+
+  .activity-car {
+    @apply text-sm text-primary-blue;
+  }
+
+  .activity-service {
+    @apply text-sm text-yellow-500 mb-1;
+  }
+
+  .activity-vehicle {
+    @apply text-xs text-gray-500;
+  }
+
+  .no-activity {
+    @apply text-gray-500 text-center p-4;
+  }
+
+  .quick-actions-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4;
+  }
+
+  .quick-action-card {
+    @apply no-underline text-inherit block bg-white p-6 rounded-lg shadow-sm text-center transition-all duration-200 border border-gray-200 hover:shadow-lg hover:-translate-y-0.5;
+  }
+
+  .quick-action-icon {
+    @apply text-white p-3 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3;
+  }
+
+  .quick-action-icon.add { @apply bg-primary-blue; }
+  .quick-action-icon.quotes { @apply bg-yellow-500; }
+  .quick-action-icon.inquiries { @apply bg-green-500; }
+  .quick-action-icon.content { @apply bg-red-500; }
+
+  .quick-action-title {
+    @apply font-semibold text-primary-blue mb-1;
+  }
+
+  .quick-action-description {
+    @apply text-sm text-gray-500;
+  }
+
+  .system-info-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-sm;
+  }
+
+  .system-info-section h4 {
+    @apply font-semibold text-gray-500 mb-2;
+  }
+
+  .system-info-section p {
+    @apply text-gray-500 mb-1;
+  }
+
+  /* Page Header */
+  .page-header-container {
+    @apply flex justify-between items-center mb-8;
+  }
+
+  .page-header-title {
+    @apply text-4xl font-bold text-primary-blue;
+  }
+
+  .page-header-subtitle {
+    @apply text-gray-500 text-base mt-1;
+  }
+
+  /* Alerts */
+  .alert {
+    @apply p-4 mb-6 rounded-md border;
+  }
+
+  .alert-danger {
+    @apply bg-red-50 border-red-200 text-red-800;
+  }
+
+  .alert-list {
+    @apply list-inside;
+  }
+
+  /* Filter Form */
+  .filter-form {
+    @apply grid grid-cols-1 md:grid-cols-4 gap-6 items-end;
+  }
+
+  .filter-group {
+    @apply flex flex-col;
+  }
+
+  .filter-actions {
+    @apply flex gap-2;
+  }
+
+  /* Empty State */
+  .empty-state {
+    @apply text-center py-16 px-8;
+  }
+
+  .empty-state i {
+    @apply text-5xl text-gray-300 mb-4;
+  }
+
+  .empty-state-title {
+    @apply text-xl font-semibold text-primary-blue mb-2;
+  }
+
+  .empty-state-text {
+    @apply text-gray-500 mb-6;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .admin-container {
+      @apply flex-col;
+    }
+
+    .admin-sidebar {
+      @apply w-full order-2;
+    }
+
+    .admin-main-content {
+      @apply order-1;
+    }
+
+    .page-content {
+      @apply p-4;
+    }
+
+    .stats-grid {
+      @apply grid-cols-1;
+    }
+
+    .admin-header {
+      @apply px-4 py-3;
+    }
+
+    .page-title {
+      @apply text-xl;
+    }
+
+    .admin-header-actions {
+      @apply gap-2;
+    }
+
+    .btn {
+      @apply px-3 py-2 text-sm;
+    }
+
+    .page-header-title {
+      @apply text-2xl;
+    }
+
+    .page-header-subtitle {
+      @apply text-sm;
+    }
+
+    .page-header-container {
+      @apply flex-col gap-4 items-start;
+    }
+
+    .filter-form {
+      @apply flex-col gap-4;
+    }
+
+    .filter-group {
+      @apply w-full;
+    }
+
+    .filter-actions {
+      @apply flex gap-2 w-full;
+    }
+
+    .filter-actions .btn {
+      @apply flex-1 justify-center;
+    }
+
+    .dashboard-grid {
+      @apply grid-cols-1;
+    }
+
+    .quick-actions-grid {
+      @apply grid-cols-2;
+    }
+
+    .system-info-grid {
+      @apply grid-cols-1;
+    }
+
+    .card-header-mobile {
+      @apply flex flex-col gap-4;
+    }
+
+    .table-search .form-input {
+      @apply w-full pl-10;
+    }
+
+    .btn-icon {
+      @apply p-3 min-w-[44px] min-h-[44px] flex items-center justify-center;
+    }
+
+    .table-actions .btn-icon {
+      @apply text-lg;
+    }
+
+    /* Alternative Mobile Card Layout */
+    .mobile-car-card {
+      @apply bg-white rounded-lg shadow-sm border border-gray-200 p-4 mb-4 hidden;
+    }
+
+    .mobile-car-header {
+      @apply flex items-start gap-4 mb-4;
+    }
+
+    .mobile-car-image {
+      @apply w-20 h-16 object-cover rounded flex-shrink-0;
+    }
+
+    .mobile-car-info {
+      @apply flex-1 min-w-0;
+    }
+
+    .mobile-car-title {
+      @apply font-semibold text-primary-blue text-sm leading-tight;
+    }
+
+    .mobile-car-meta {
+      @apply text-xs text-gray-500 mt-1;
+    }
+
+    .mobile-car-details {
+      @apply grid grid-cols-2 gap-3 text-sm mb-4;
+    }
+
+    .mobile-car-detail {
+      @apply flex justify-between;
+    }
+
+    .mobile-car-detail-label {
+      @apply font-medium text-gray-600;
+    }
+
+    .mobile-car-actions {
+      @apply flex justify-end gap-2 pt-3 border-t border-gray-100;
+    }
+
+    /* Show mobile cards and hide table on mobile */
+    /* Desktop default styles */
+    .table-container {
+      @apply block;
+    }
+
+    .mobile-cars-container {
+      @apply hidden;
+    }
+
+    .mobile-car-card {
+      @apply hidden;
+    }
+
+    @media (max-width: 767px) {
+      .table-container {
+        @apply hidden;
+      }
+
+      .mobile-cars-container {
+        @apply block;
+      }
+
+      .mobile-car-card {
+        @apply block;
+      }
+
+      .card-header-mobile {
+        @apply flex flex-col gap-4;
+      }
+
+      /* Mobile Table Styles for smaller screens */
+      .table,
+      .table thead,
+      .table tbody,
+      .table th,
+      .table td,
+      .table tr {
+        @apply block;
+      }
+
+      .table thead tr {
+        @apply absolute -top-full -left-full;
+      }
+
+      .table tr {
+        @apply border border-gray-200 mb-6 rounded-lg bg-white shadow-sm overflow-hidden;
+      }
+
+      .table td {
+        @apply border-0 py-3 px-4;
+      }
+
+      .table td:first-child {
+        @apply flex justify-center py-4 bg-gray-50;
+      }
+
+      .table td:not(:first-child) {
+        @apply flex justify-between items-center border-b border-gray-100 last:border-b-0;
+      }
+
+      .table td:not(:first-child):before {
+        content: attr(data-label);
+        @apply font-semibold text-gray-600 text-sm;
+      }
+
+      .table-image {
+        @apply h-20 w-32 object-cover rounded;
+      }
+
+      .table-actions {
+        @apply justify-end gap-2;
+      }
+
+      .table-cell-primary {
+        @apply text-right;
+      }
+
+      .table-cell-secondary {
+        @apply text-right text-xs;
+      }
+
+      .mobile-vehicle-info {
+        @apply text-right;
+      }
+
+      .mobile-vehicle-info .table-cell-primary {
+        @apply text-right font-semibold;
+      }
+
+      .mobile-vehicle-info .table-cell-secondary {
+        @apply text-right text-xs text-gray-500 mt-1;
+      }
+
+      .badge {
+        @apply inline-block;
+      }
+    }
+  }
+}

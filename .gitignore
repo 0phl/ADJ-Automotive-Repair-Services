@@ -67,6 +67,8 @@ yarn.lock
 dist/
 build/
 public/build/
+assets/css/tailwind.css
+assets/css/admin-tailwind.css
 
 # PHP Specific
 *.php~

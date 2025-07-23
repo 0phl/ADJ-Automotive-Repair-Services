@@ -23,13 +23,13 @@ $currentPage = basename($_SERVER['PHP_SELF']);
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- Admin CSS -->
-    <link rel="stylesheet" href="<?php echo ASSETS_URL; ?>/css/admin.css?v=<?php echo APP_VERSION; ?>">
+    <!-- Admin CSS - Tailwind Build -->
+    <link rel="stylesheet" href="<?php echo ASSETS_URL; ?>/css/admin-tailwind.css?v=<?php echo APP_VERSION; ?>">
 </head>
 <body>
     <div class="admin-container">
         <!-- Sidebar -->
-        <aside class="sidebar">
+        <aside class="admin-sidebar">
             <div class="sidebar-header">
                 <a href="<?php echo ADMIN_URL; ?>/dashboard.php" class="sidebar-logo-link">
                     <i class="fas fa-tools"></i>
@@ -120,12 +120,17 @@ $currentPage = basename($_SERVER['PHP_SELF']);
         </aside>
 
         <!-- Main Content Area -->
-        <main class="main-content">
+        <main class="admin-main-content">
             <!-- Top Header -->
             <header class="admin-header">
-                <h1 class="page-title">
-                    <?php echo isset($pageTitle) ? $pageTitle : 'Admin Panel'; ?>
-                </h1>
+                <div class="admin-header-left">
+                    <button class="mobile-menu-toggle md:hidden" id="mobileMenuToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1 class="page-title">
+                        <?php echo isset($pageTitle) ? $pageTitle : 'Admin Panel'; ?>
+                    </h1>
+                </div>
                 <div class="admin-header-actions">
                     <div class="notification-widget">
                         <button class="notification-button">
@@ -146,7 +151,8 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                     </div>
                     <a href="<?php echo ADMIN_URL; ?>/cars/add.php" class="btn btn-primary">
                         <i class="fas fa-plus"></i>
-                        <span>Add Car</span>
+                        <span class="hidden sm:inline">Add Car</span>
+                        <span class="sm:hidden">Add</span>
                     </a>
                 </div>
             </header>
@@ -154,3 +160,43 @@ $currentPage = basename($_SERVER['PHP_SELF']);
             <!-- Page Content -->
             <div class="page-content">
                 <?php // Content starts here ?>
+
+    <!-- Mobile Sidebar Overlay -->
+    <div class="mobile-sidebar-overlay" id="mobileSidebarOverlay"></div>
+
+    <!-- Mobile Menu JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            const sidebar = document.querySelector('.admin-sidebar');
+            const overlay = document.getElementById('mobileSidebarOverlay');
+
+            if (mobileMenuToggle) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    sidebar.classList.toggle('mobile-open');
+                    overlay.classList.toggle('active');
+                    document.body.classList.toggle('sidebar-open');
+                });
+            }
+
+            if (overlay) {
+                overlay.addEventListener('click', function() {
+                    sidebar.classList.remove('mobile-open');
+                    overlay.classList.remove('active');
+                    document.body.classList.remove('sidebar-open');
+                });
+            }
+
+            // Close sidebar when clicking nav links on mobile
+            const navLinks = document.querySelectorAll('.nav-item');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth < 768) {
+                        sidebar.classList.remove('mobile-open');
+                        overlay.classList.remove('active');
+                        document.body.classList.remove('sidebar-open');
+                    }
+                });
+            });
+        });
+    </script>
